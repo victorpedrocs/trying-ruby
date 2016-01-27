@@ -2,10 +2,10 @@
 
 one:
   body: MyText
-  user_id: 
-  task_id: 
+  author: MyString
+  task_id:
 
 two:
   body: MyText
-  user_id: 
-  task_id: 
+  author: MyString
+  task_id:

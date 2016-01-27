@@ -3,9 +3,9 @@
 one:
   name: MyString
   description: MyString
-  project_id_id: 
+  project_id:
 
 two:
   name: MyString
   description: MyString
-  project_id_id: 
+  project_id: 
