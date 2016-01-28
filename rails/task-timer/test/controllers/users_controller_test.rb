@@ -17,6 +17,8 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should create user" do
+    @user.email = "Random"
+    @user.password = "123456789"
     assert_difference('User.count') do
       post :create, user: { email: @user.email, password: @user.password }
     end

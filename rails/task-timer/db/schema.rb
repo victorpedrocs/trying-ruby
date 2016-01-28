@@ -11,19 +11,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160126214418) do
+ActiveRecord::Schema.define(version: 20160127211528) do
+
+  create_table "artigos", force: :cascade do |t|
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.string   "nome",       limit: 255
+    t.text     "texto",      limit: 65535
+  end
 
   create_table "comments", force: :cascade do |t|
+    t.string   "author",     limit: 255
     t.text     "body",       limit: 65535
-    t.integer  "user_id",    limit: 4
     t.integer  "task_id",    limit: 4
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
-    t.string   "author",     limit: 255
   end
 
   add_index "comments", ["task_id"], name: "index_comments_on_task_id", using: :btree
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "projects", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -45,15 +50,22 @@ ActiveRecord::Schema.define(version: 20160126214418) do
 
   add_index "tasks", ["project_id"], name: "index_tasks_on_project_id", using: :btree
 
+  create_table "tweets", force: :cascade do |t|
+    t.string   "autor",      limit: 255
+    t.text     "texto",      limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "password",   limit: 255
     t.string   "email",      limit: 255
+    t.string   "username",   limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
 
   add_foreign_key "comments", "tasks"
-  add_foreign_key "comments", "users"
   add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"
 end
