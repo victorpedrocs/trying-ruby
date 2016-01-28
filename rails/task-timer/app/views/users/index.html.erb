@@ -13,7 +13,7 @@
 
   <tbody>
     <% @users.each do |user| %>
-      <tr>
+      <tr class="<%= cycle('odd', 'even')%>">
         <td><%= user.password %></td>
         <td><%= user.email %></td>
         <td><%= link_to 'Show', user %></td>
