@@ -65,10 +65,13 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       @project = Project.find(params[:id])
+      @user = User.find(@project.user_id) if @project.user_id
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :description, :user_id_id)
+      form_params = params.require(:project).permit(:name, :description)
+      form_params.merge! ( { :user_id => params.require(:user).permit(:id)[:id] } )
+      return form_params
     end
 end

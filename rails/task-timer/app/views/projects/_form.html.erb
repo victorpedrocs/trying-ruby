@@ -21,7 +21,7 @@
   </div>
   <div class="field">
     <%= f.label :user %><br>
-    <%= f.text_field :user %>
+    <%= select("user", "id", User.all.collect {|u| [ u.name, u.id ] }, {prompt: 'Select User'}) %>
   </div>
   <div class="actions">
     <%= f.submit %>

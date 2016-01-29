@@ -4,5 +4,5 @@ class Task < ActiveRecord::Base
 
   validates :name, :presence => true
   validates :description, :length => { :maximum => 500 }
-
+  validates :project_id, :presence => true
 end
