@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 
+  task_id: 
+  start: 2016-01-31 03:19:00
+  finish: 2016-01-31 03:19:00
+  interval: 2016-01-31 03:19:00
+  pomodoros: 
+
+two:
+  user_id: 
+  task_id: 
+  start: 2016-01-31 03:19:00
+  finish: 2016-01-31 03:19:00
+  interval: 2016-01-31 03:19:00
+  pomodoros: 
