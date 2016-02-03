@@ -1,0 +1,11 @@
+- provide(:title, "Home")
+%h1 This is home
+%h3= get_random_welcome
+%p
+  %strong Show The season:
+%p
+  = get_season
+%p
+  %strong Show a random number:
+%p
+  = get_random_value 99

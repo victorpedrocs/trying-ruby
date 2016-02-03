@@ -6,7 +6,7 @@ class CreateTimers < ActiveRecord::Migration
       t.time :start
       t.time :finish
       t.time :interval
-      t.number :pomodoros
+      t.integer :pomodoros
 
       t.timestamps null: false
     end
