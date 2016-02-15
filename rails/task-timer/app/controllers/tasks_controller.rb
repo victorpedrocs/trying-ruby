@@ -21,6 +21,10 @@ class TasksController < ApplicationController
   def edit
   end
 
+  def start_timer
+
+  end
+
   # POST /tasks
   # POST /tasks.json
   def create

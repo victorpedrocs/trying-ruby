@@ -18,4 +18,4 @@
     = select("user", "id", User.all.collect {|u| [ u.name, u.id ] })
     = f.label :user
   .input-field
-    = f.submit
+    = f.submit "Save", { :class => "btn waves-effect waves-light"}

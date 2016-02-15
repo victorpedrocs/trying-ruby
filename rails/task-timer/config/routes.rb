@@ -8,9 +8,12 @@ Rails.application.routes.draw do
 
   resources :tasks do
     resources :comments
+    resources :timers
   end
   resources :projects
   resources :users
+
+  get 'tasks/start_timer'
 
   # get 'welcome/index
   # The priority is based upon order of creation: first created -> highest priority.
