@@ -17,4 +17,4 @@
     = select("project", "id", Project.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select Project'})
     = f.label :project
   .input-field
-    = f.submit
+    = f.submit 'Create Task', { class: "btn waves-effect waves-light" }

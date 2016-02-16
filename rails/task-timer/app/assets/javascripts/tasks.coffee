@@ -48,5 +48,3 @@ $(document).ready(
     $('select').material_select()
     return
 )
-
-new Clock().start()

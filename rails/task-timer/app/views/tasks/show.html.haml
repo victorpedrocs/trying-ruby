@@ -34,7 +34,9 @@
     %br
     = link_to 'Edit', edit_task_path(@task), class: 'btn waves-effect waves-light'
     = link_to 'Back', tasks_path, class: 'btn waves-effect waves-light'
+
     %br
-    = link_to options = {controller: :tasks, action: :start_timer},
-              html_options = {class: 'btn-floating btn-large waves-effect waves-light'} do
+    %br
+
+    = link_to new_task_timer_path(@task), html_options = {class: 'btn-floating btn-large waves-effect waves-light'} do
       %i.material-icons play_arrow
