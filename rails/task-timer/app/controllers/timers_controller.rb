@@ -20,7 +20,7 @@ class TimersController < ApplicationController
 
     def timer_params
       form_params = { task_id: params.require(:task)[:id] }
-      form_params.merge!( { start: Date.current } )
+      form_params.merge!( { start: Time.now } )
     end
 
 end
