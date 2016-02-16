@@ -13,7 +13,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     respond_to do |format|
-      format.html { redirect_to task_path(@task), :notice => "Comment deleted" }
+      format.html { redirect_to task_path(@task), notice: "Comment deleted" }
       format.json { head :no_content }
     end
   end

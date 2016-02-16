@@ -20,21 +20,21 @@
         %strong Comment:
         = comment.body
       %p
-        = link_to "Delete", {:controller => 'comments', :action => "destroy", :task_id => @task.id, :id => comment.id}, :method=> :delete
+        = link_to "Delete", {controller: 'comments', action: "destroy", task_id: @task.id, id: comment.id}, method: :delete
     %h3 Add a Comment
     = form_for([@task, @task.comments.build]) do |f|
       .input-field
         = f.text_field :author
         = f.label :author
       .input-field
-        = f.text_area :body, { :class => "materialize-textarea" }
+        = f.text_area :body, { class: "materialize-textarea" }
         = f.label :body
       .input-field
-        = f.submit "Submit Comment", { :class => "btn waves-effect waves-light"}
+        = f.submit "Submit Comment", { class: "btn waves-effect waves-light"}
     %br
-    = link_to 'Edit', edit_task_path(@task), :class => 'btn waves-effect waves-light'
-    = link_to 'Back', tasks_path, :class => 'btn waves-effect waves-light'
+    = link_to 'Edit', edit_task_path(@task), class: 'btn waves-effect waves-light'
+    = link_to 'Back', tasks_path, class: 'btn waves-effect waves-light'
     %br
-    = link_to options = {:controller => :tasks, :action => :start_timer},
-              html_options = {:class => 'btn-floating btn-large waves-effect waves-light'} do
+    = link_to options = {controller: :tasks, action: :start_timer},
+              html_options = {class: 'btn-floating btn-large waves-effect waves-light'} do
       %i.material-icons play_arrow

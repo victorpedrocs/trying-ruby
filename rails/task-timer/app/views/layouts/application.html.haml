@@ -11,19 +11,19 @@
     %header
       %nav.nav-wrapper
         = link_to image_tag( "icon_128.png", alt: "Task Timer" ), |
-          {:controller => :pages, :action => :home },             |
-          { :class => 'brand-logo left'}
-
+          { controller: :pages, action: :home },             |
+          { class: 'brand-logo left'}
         %ul#nav-mobile.right
+
           %li
-            = link_to "Home", { :controller => 'pages', :action => 'home'}
+            = link_to "Home", { controller: 'pages', action: 'home'}
           %li
-            = link_to "Users", { :controller => 'users', :action => 'index'}
+            = link_to "Users", { controller: 'users', action: 'index'}
           %li
-            = link_to "Projects", { :controller => 'projects', :action => 'index'}
+            = link_to "Projects", { controller: 'projects', action: 'index'}
           %li
-            = link_to "Tasks", { :controller => 'tasks', :action => 'index'}
+            = link_to "Tasks", { controller: 'tasks', action: 'index'}
           %li
-            = link_to "About", { :controller => 'pages', :action => 'about'}
+            = link_to "About", { controller: 'pages', action: 'about'}
     #wrapper
       = yield

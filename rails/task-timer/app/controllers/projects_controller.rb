@@ -71,7 +71,7 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       form_params = params.require(:project).permit(:name, :description)
-      form_params.merge! ( { :user_id => params.require(:user).permit(:id)[:id] } )
+      form_params.merge! ( { user_id: params.require(:user).permit(:id)[:id] } )
       return form_params
     end
 end

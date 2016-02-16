@@ -8,10 +8,10 @@
         - @task.errors.full_messages.each do |message|
           %li= message
   .input-field
-    = f.text_field :name, {:class => "validate"}
+    = f.text_field :name, { class: "validate"}
     = f.label :name
   .input-field
-    = f.text_field :description, {:class => "validate"}
+    = f.text_field :description, { class: "validate"}
     = f.label :description
   .input-field
     = select("project", "id", Project.all.collect {|p| [ p.name, p.id ] }, {prompt: 'Select Project'})

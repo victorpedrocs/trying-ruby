@@ -18,7 +18,7 @@ class TimersController < ApplicationController
 
     def timer_params
       form_params = params.require(:timer).permit(:name, :description, :project_id)
-      form_params.merge!( { :project_id => params.require(:project)[:id] } )
+      form_params.merge!( { project_id: params.require(:project)[:id] } )
     end
 
 end

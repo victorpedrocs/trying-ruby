@@ -75,6 +75,6 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       form_params = params.require(:task).permit(:name, :description, :project_id)
-      form_params.merge!( { :project_id => params.require(:project)[:id] } )
+      form_params.merge!( { project_id: params.require(:project)[:id] } )
     end
 end
