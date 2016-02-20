@@ -1,6 +1,12 @@
 class TimersController < ApplicationController
   before_action :set_timer, only: [:update]
 
+  def new
+    @task = Task.find params[:task_id]
+    @timer = Timer.new
+    redirect_to task_path(@task)
+  end
+
   def create
     @task = Task.find params.require(:task)[:id]
     @timer = @task.timers.create(timer_params)
