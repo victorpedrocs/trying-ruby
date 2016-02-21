@@ -1,6 +1,20 @@
 .row
   .col.s12.m8.offset-m2
     %p#notice= notice
+
+    - if @open_task
+      .card
+        .card-content
+          %span.card-title
+            .row
+              .col.s6
+                = @open_task.start.to_s(:short)
+              .col.s6
+                = link_to options = {controller: :timers, action: :edit, task_id: @task.id, id: @open_task.id}, html_options = {class: 'btn-floating btn-large waves-effect waves-light'} do
+                  %i.material-icons stop
+    - else
+      = link_to new_task_timer_path(@task), html_options = {class: 'btn-floating btn-large waves-effect waves-light'} do
+        %i.material-icons play_arrow
     %p
       %strong Name:
       = @task.name
@@ -10,6 +24,21 @@
     %p
       %strong Project:
       = @project.name
+    %p
+      %strong Id
+      = @task.id
+
+    -if @timers.any?
+      .card
+        .card-content
+          %span.card-title Timers
+          -@timers.each do |timer|
+            .row
+              .col.s6
+                = timer.start.to_s(:short)
+              .col.s6
+                = timer.finish.to_s(:short)
+
 
     %h3 Comments
     - @task.comments.each do |comment|
@@ -37,6 +66,3 @@
 
     %br
     %br
-
-    = link_to new_task_timer_path(@task), html_options = {class: 'btn-floating btn-large waves-effect waves-light'} do
-      %i.material-icons play_arrow

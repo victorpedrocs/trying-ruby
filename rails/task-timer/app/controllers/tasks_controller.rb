@@ -70,6 +70,8 @@ class TasksController < ApplicationController
     def set_task
       @task = Task.find(params[:id])
       @project = Project.find(@task.project_id)
+      @timers = @task.timers.where.not(finish: nil)
+      @open_task = @task.timers.where(finish: nil).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
