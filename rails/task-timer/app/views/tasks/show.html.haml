@@ -13,11 +13,17 @@
         %p
           %strong Project:
           = @project.name
+        %p
+          #timer
 
     - if @open_task
-      .fixed-action-btn.left-middle-btn
-        = link_to options = {controller: :timers, action: :edit, task_id: @task.id, id: @open_task.id}, html_options = {class: 'btn-floating btn-large waves-effect waves-light'} do
-          %i.material-icons stop
+      = form_for [@task, @task.timers.build],
+          html: { id: 'form-timer-stop'} do |f|
+        = f.hidden_field :start, {id: 'time-stop'}
+
+        .fixed-action-btn.left-middle-btn
+          %button.btn-floating.btn-large.waves-effect.waves-light{type: "submit"}
+            %i.material-icons stop
       .card
         .card-content
           %span.card-title
@@ -25,9 +31,15 @@
               .col.s6
                 = @open_task.start.to_s(:short)
     - else
-      .fixed-action-btn.left-middle-btn
-        = link_to new_task_timer_path(@task), html_options = {class: 'btn-floating btn-large waves-effect waves-light'} do
-          %i.material-icons play_arrow
+      = form_for [@task, @task.timers.build],
+          html: { id: 'form-timer-start' } do |f|
+        = f.hidden_field :start, {id: 'time-start'}
+
+        .fixed-action-btn.left-middle-btn
+          %button.btn-floating.btn-large.waves-effect.waves-light{type: "submit"}
+            %i.material-icons play_arrow
+
+
 
     -if @timers.any?
       .card
