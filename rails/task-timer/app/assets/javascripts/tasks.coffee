@@ -1,62 +1,51 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-class Clock
-  constructor: ->
-    @startTime = new Date()
-    @running = false
-
-  # convert_time: ( time ) ->
-  #   s = Math.trunc(time / 1000)
-  #   m = Math.trunc( s / 60 )
-  #   h = Math.trunc( m / 60 )
-  #
-  #   converted_time =
-  #     hours:   Math.trunc( h % 60 )
-  #     minutes: Math.trunc( m % 60 )
-  #     seconds: Math.trunc( s % 60 )
-
-  # cont_time_callback: ->
-  #   this.cont_time()
-
-  # cont_time: ->
-  #   elapsed = this.convert_time new Date().getTime() - @startTime
-  #   $('p#notice').text("#{elapsed.hours}:#{elapsed.minutes}:#{elapsed.seconds}")
-  #   setTimeout this.cont_time_callback(), 2000 if @running
-  #   return
-
-  start: ->
-    @startTime = new Date()
-    $('#timer').html( @startTime.toLocaleTimeString() )
-    return
-
-  # stop: ->
-  #   @running = false
-  #   return
-
-  # rec: (n) ->
-  #   if n > 0
-  #     console.log "couting"
-  #     this.rec n-1
-  #   return
 
 on_submit_timer_form = ( action ) ->
   d = new Date()
   $('input#time-'+action).val(d)
   return true
 
-set_time = ( action ) ->
-  d = new Date()
-  $('#timer').html( d.toLocaleTimeString() )
+setup_on_submit = ->
+  if $('#form-timer-start').length
+    $('form#form-timer-start').submit( ->
+      d = new Date()
+      $('input#time-start').val(d)
+      return true
+    )
+
+  if $('#form-timer-stop').length
+    $('form#form-timer-stop').submit( ->
+      d = new Date()
+      $('input#time-stop').val(d)
+      return true
+    )
   return
 
-setInterval set_time(), 1000
+get_start_time = ->
+  $('#time-start').val()
+
+set_time = ->
+  now = new Date()
+  begin = new Date( get_start_time() )
+  delta = new Date( now - begin )
+
+  console.log now
+  console.log begin
+  console.log delta
+
+  $('#timer').html( delta.toLocaleTimeString() )
+  return
+
+setup_timer = ->
+  if $('#form-timer-stop').length
+    setInterval set_time, 500
+  return
 
 $(document).ready(
   ->
+    # Setting up the material select
     $('select').material_select()
-    $('form#form-timer-start').submit(on_submit_timer_form('start'))
-    $('form#form-timer-stop').submit(on_submit_timer_form('stop'))
-    setInterval set_time, 1000
+    setup_on_submit()
+    setup_timer()
+
     return
 )

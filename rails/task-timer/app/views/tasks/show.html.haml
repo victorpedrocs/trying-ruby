@@ -13,13 +13,12 @@
         %p
           %strong Project:
           = @project.name
-        %p
-          #timer
 
     - if @open_task
-      = form_for [@task, @task.timers.build],
+      = form_for [@task, @open_task],
           html: { id: 'form-timer-stop'} do |f|
-        = f.hidden_field :start, {id: 'time-stop'}
+        = f.hidden_field :start, {id: 'time-start'}
+        = f.hidden_field :finish, {id: 'time-stop'}
 
         .fixed-action-btn.left-middle-btn
           %button.btn-floating.btn-large.waves-effect.waves-light{type: "submit"}
@@ -29,7 +28,7 @@
           %span.card-title
             .row
               .col.s6
-                = @open_task.start.to_s(:short)
+                %span#timer
     - else
       = form_for [@task, @task.timers.build],
           html: { id: 'form-timer-start' } do |f|
@@ -48,11 +47,11 @@
           -@timers.each do |timer|
             .row
               .col.s4
-                = timer.start.to_s(:short)
+                = timer.start.to_s
               .col.s4
-                = timer.finish.to_s(:short)
+                = timer.finish.to_s
               .col.s4
-                = (timer.finish - timer.start).to_s :short
+                = (timer.finish - timer.start).to_s
 
 
     %h3 Comments

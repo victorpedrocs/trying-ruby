@@ -72,6 +72,7 @@ class TasksController < ApplicationController
       @project = Project.find(@task.project_id)
       @timers = @task.timers.where.not(finish: nil)
       @open_task = @task.timers.where(finish: nil).last
+      Rails.logger.debug "OPEN TASK: #{@open_task}"
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
