@@ -1,5 +1,5 @@
 class TimersController < ApplicationController
-  before_action :set_timer, only: [:update, :edit]
+  before_action :set_timer, only: [:update, :edit, :destroy]
 
   def new
   end
@@ -8,16 +8,28 @@ class TimersController < ApplicationController
     @task = Task.find params[:task_id]
 
     @timer = @task.timers.create(timer_params)
-    redirect_to task_path @task, @timer
+    respond_to do |format|
+      format.html { redirect_to @task, notice: 'Timer started' }
+    end
   end
 
   def edit
   end
 
   def update
-    if @timer.update timer_params
-      Rails.logger.debug "TIMER PARAMS: id => #{@timer.id}; start => #{@timer.start}; finish => #{@timer.finish}"
-      redirect_to task_path @task
+    respond_to do |format|
+      if @timer.update timer_params
+        format.html { redirect_to @task, notice: 'Timer stopped' }
+      end
+    end
+
+  end
+
+  def destroy
+    @timer.destroy
+    respond_to do |format|
+      format.html { redirect_to @task, notice: 'Timer deleted' }
+      format.json { head :no_content }
     end
   end
 

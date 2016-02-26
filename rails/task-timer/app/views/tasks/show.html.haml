@@ -1,6 +1,6 @@
 .row
   .col.s12.m8.offset-m2
-    %p#notice= notice
+    %input#notice{type: "hidden", value: "#{notice}"}
 
     .card
       .card-content
@@ -20,7 +20,7 @@
         = f.hidden_field :start, {id: 'time-start'}
         = f.hidden_field :finish, {id: 'time-stop'}
 
-        .fixed-action-btn.left-middle-btn
+        .left-middle-btn
           %button.btn-floating.btn-large.waves-effect.waves-light{type: "submit"}
             %i.material-icons stop
       .card
@@ -46,12 +46,15 @@
           %span.card-title Timers
           -@timers.each do |timer|
             .row
-              .col.s4
-                = timer.start.to_s
-              .col.s4
-                = timer.finish.to_s
-              .col.s4
-                = (timer.finish - timer.start).to_s
+              .col.s3
+                = timer.start.to_s( :db )
+              .col.s3
+                = timer.finish.to_s( :db )
+              .col.s3
+                = delta_time timer.start, timer.finish
+              .col.s3
+                = link_to options = { controller: :timers, action: :destroy, task_id: @task.id, id: timer.id}, method: :delete do
+                  %i.material-icons delete
 
 
     %h3 Comments

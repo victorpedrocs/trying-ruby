@@ -32,8 +32,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# haml for beter html editting
 gem 'haml-rails', '~> 0.9.0'
+# materialize for the layout
 gem 'materialize-sass', '~> 0.97.5'
+# moment js to deal with time in the front-end
+gem 'momentjs-rails', '~> 2.11'
+# time_diff to deal with time difference in the controller and server redered views
+gem 'time_diff', '~> 0.3.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

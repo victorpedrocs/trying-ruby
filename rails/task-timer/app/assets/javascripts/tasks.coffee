@@ -23,21 +23,27 @@ setup_on_submit = ->
 get_start_time = ->
   $('#time-start').val()
 
-set_time = ->
+diff_time = ( start ) ->
   now = new Date()
+  moment.utc( moment( now ).diff( moment( start ) ) ).format( 'HH:mm:ss' )
+
+set_time = ->
   begin = new Date( get_start_time() )
-  delta = new Date( now - begin )
+  delta = diff_time( begin )
 
-  console.log now
-  console.log begin
-  console.log delta
-
-  $('#timer').html( delta.toLocaleTimeString() )
+  $('#timer').html( delta )
   return
 
 setup_timer = ->
   if $('#form-timer-stop').length
     setInterval set_time, 500
+  return
+
+toast_notice = ->
+  notice = $('input#notice').val()
+  if notice != ''
+    Materialize.toast(notice, 4000)
+
   return
 
 $(document).ready(
@@ -46,6 +52,7 @@ $(document).ready(
     $('select').material_select()
     setup_on_submit()
     setup_timer()
+    toast_notice()
 
     return
 )

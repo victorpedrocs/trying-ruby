@@ -15,6 +15,8 @@
 //= require turbolinks
 //= require_tree .
 //= require materialize-sprockets
+//= require moment
+
 ( function($) {
   $(".button-collapse").sideNav();
 })(jQuery);
