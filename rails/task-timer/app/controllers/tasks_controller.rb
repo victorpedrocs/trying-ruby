@@ -69,10 +69,11 @@ class TasksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_task
       @task = Task.find(params[:id])
+
       @project = Project.find(@task.project_id)
-      @timers = @task.timers.where.not(finish: nil)
-      @open_task = @task.timers.where(finish: nil).last
-      Rails.logger.debug "OPEN TASK: #{@open_task}"
+
+      @timers = @task.closed_timers
+      @open_task = @task.last_open_timer
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
