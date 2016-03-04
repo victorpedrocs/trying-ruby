@@ -66,7 +66,7 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
 
       @timers = @task.closed_timers
-      @open_timer = @task.last_open_timer
+      @timer = @task.last_open_timer || @task.timers.build
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

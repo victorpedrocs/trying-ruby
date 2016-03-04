@@ -10,6 +10,7 @@ class TimersController < ApplicationController
     @timer = @task.timers.create(timer_params)
     respond_to do |format|
       format.html { redirect_to @task, notice: 'Timer started' }
+      format.json { render json: @timer.to_json(except: [:created_at, :updated_at]) }
     end
   end
 
@@ -29,19 +30,18 @@ class TimersController < ApplicationController
     @timer.destroy
     respond_to do |format|
       format.html { redirect_to @task, notice: 'Timer deleted' }
-      format.json { head :no_content }
+      format.json { render json: @timer.to_json(except: [:created_at, :updated_at]) }
     end
   end
 
   private
     def set_timer
-      @task = Task.find params.require(:task_id)
-      @timer = @task.timers.find(params[:id])
+      @timer = Timer.find(params[:id])
+      @task = @timer.task
     end
 
     def timer_params
       form_params = params.require(:timer).permit :start, :finish
-      return form_params
     end
 
 end

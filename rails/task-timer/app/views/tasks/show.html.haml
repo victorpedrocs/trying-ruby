@@ -13,31 +13,21 @@
         %p
           %strong Project:
           = @task.project.name
-
-    - if @open_timer
-      = form_for [@task, @open_timer],
-          html: { id: 'form-timer-stop'} do |f|
-        = f.hidden_field :start, {id: 'time-start'}
-        = f.hidden_field :finish, {id: 'time-stop'}
-
-        .left-middle-btn
-          %button.btn-floating.btn-large.waves-effect.waves-light{type: "submit"}
-            %i.material-icons stop
+    - if not @timer.new_record?
       .card
         .card-content
           %span.card-title
             .row
               .col.s6
                 %span#timer
-    - else
-      = form_for [@task, @task.timers.build],
-          html: { id: 'form-timer-start' } do |f|
-        = f.hidden_field :start, {id: 'time-start'}
 
-        .fixed-action-btn.left-middle-btn
-          %button.btn-floating.btn-large.waves-effect.waves-light{type: "submit"}
-            %i.material-icons play_arrow
+    = form_for [@task, @timer],
+        html: { id: 'timer-form'} do |f|
+      = f.hidden_field :start, {id: 'time-start'}
+      = f.hidden_field :finish, {id: 'time-finish'}
 
+      %button.btn-floating.btn-large.waves-effect.waves-light{type: "submit"}
+        %i.material-icons#timer-button play_arrow
 
     -if @timers.any?
       .card

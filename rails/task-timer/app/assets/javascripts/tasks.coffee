@@ -1,23 +1,20 @@
 
-on_submit_timer_form = ( action ) ->
-  d = new Date()
-  $('input#time-'+action).val(d)
-  return true
-
 setup_on_submit = ->
-  if $('#form-timer-start').length
-    $('form#form-timer-start').submit( ->
-      d = new Date()
-      $('input#time-start').val(d)
-      return true
-    )
+  $('form#timer-form').submit (event) ->
+    url = $(this).attr('action')
+    method = $("form#timer-form input[name='_method']").val()
 
-  if $('#form-timer-stop').length
-    $('form#form-timer-stop').submit( ->
-      d = new Date()
-      $('input#time-stop').val(d)
-      return true
-    )
+    if !$('input#time-start').val()
+      $('input#time-start').val( new Date() )
+    else
+      $('input#time-finish').val( new Date() )
+
+    timer_data = {
+      start: $('input#time-start').val(),
+      finish: $('input#time-finish').val()
+    }
+
+    return true
   return
 
 get_start_time = ->
@@ -35,7 +32,8 @@ set_time = ->
   return
 
 setup_timer = ->
-  if $('#form-timer-stop').length
+  if $('#timer-form').children('input#time-start').val()
+    $('i#timer-button').text('stop');
     setInterval set_time, 500
   return
 
