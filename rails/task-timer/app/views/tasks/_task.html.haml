@@ -1,0 +1,5 @@
+= content_tag_for :tr, task, class: "#{cycle('odd', 'even')}" do
+    %td= link_to task.name, task
+    %td= task.project.name
+    %td= link_to 'Edit', edit_task_path(task)
+    %td= link_to 'Destroy', task, method: :delete, remote: true

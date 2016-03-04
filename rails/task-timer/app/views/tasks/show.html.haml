@@ -12,10 +12,10 @@
           = @task.description
         %p
           %strong Project:
-          = @project.name
+          = @task.project.name
 
-    - if @open_task
-      = form_for [@task, @open_task],
+    - if @open_timer
+      = form_for [@task, @open_timer],
           html: { id: 'form-timer-stop'} do |f|
         = f.hidden_field :start, {id: 'time-start'}
         = f.hidden_field :finish, {id: 'time-stop'}
@@ -39,7 +39,6 @@
             %i.material-icons play_arrow
 
 
-
     -if @timers.any?
       .card
         .card-content
@@ -53,30 +52,35 @@
               .col.s3
                 = delta_time timer.start, timer.finish
               .col.s3
-                = link_to options = { controller: :timers, action: :destroy, task_id: @task.id, id: timer.id}, method: :delete do
+                = link_to [@task, timer], method: :delete do
                   %i.material-icons delete
 
+    - if @task.comments.any?
+      %h4 Comments
+      - @task.comments.each do |comment|
+        .card
+          .card-content
+            %span.card-title
+              =comment.author
+            %p
+              = comment.body
+            %p
+              = link_to [@task, comment], method: :delete do
+                %i.material-icons delete
 
-    %h3 Comments
-    - @task.comments.each do |comment|
-      %p
-        %strong Author:
-        = comment.author
-      %p
-        %strong Comment:
-        = comment.body
-      %p
-        = link_to "Delete", {controller: 'comments', action: "destroy", task_id: @task.id, id: comment.id}, method: :delete
-    %h3 Add a Comment
-    = form_for([@task, @task.comments.build]) do |f|
-      .input-field
-        = f.text_field :author
-        = f.label :author
-      .input-field
-        = f.text_area :body, { class: "materialize-textarea" }
-        = f.label :body
-      .input-field
-        = f.submit "Submit Comment", { class: "btn waves-effect waves-light"}
+
+    .card
+      .card-content
+        %span.card-title Add a Comment
+        = form_for([@task, @task.comments.build]) do |f|
+          .input-field
+            = f.text_field :author
+            = f.label :author
+          .input-field
+            = f.text_area :body, { class: "materialize-textarea" }
+            = f.label :body
+          .input-field
+            = f.submit "Submit Comment", { class: "btn waves-effect waves-light"}
     %br
     = link_to 'Edit', edit_task_path(@task), class: 'btn waves-effect waves-light'
     = link_to 'Back', tasks_path, class: 'btn waves-effect waves-light'

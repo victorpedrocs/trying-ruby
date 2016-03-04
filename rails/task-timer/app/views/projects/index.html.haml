@@ -14,9 +14,9 @@
           %tr{class: "#{cycle('odd', 'even')}"}
             %td= project.name
             %td= project.description
-            %td= User.find(project.user_id).name if project.user_id
+            %td= project.user.name
             %td= link_to 'Show', project
             %td= link_to 'Edit', edit_project_path(project)
             %td= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }
-    %br/
+    %br
     = link_to 'New Project', new_project_path
