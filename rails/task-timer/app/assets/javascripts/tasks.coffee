@@ -44,13 +44,21 @@ toast_notice = ->
 
   return
 
-$(document).ready(
-  ->
-    # Setting up the material select
-    $('select').material_select()
-    setup_on_submit()
-    setup_timer()
-    toast_notice()
+initialize = ->
+  # Setting up the material select
+  $('select').material_select()
+  setup_on_submit()
+  setup_timer()
+  toast_notice()
 
-    return
-)
+  return
+
+
+$(document).ready( initialize )
+# Work around turbolinks
+$(document).on('page:load', initialize)
+
+
+# Turbolinks latency loader indicator
+# $(document).on('page:fetch', callback) # is the event fired when the page is loading
+# $(document).on('page:change', callback) # is fired when the page finishes loading
