@@ -19,4 +19,5 @@
 
 ( function($) {
   $(".button-collapse").sideNav();
+  Turbolinks.enableProgressBar();
 })(jQuery);

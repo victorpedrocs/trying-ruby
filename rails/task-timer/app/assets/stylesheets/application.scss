@@ -21,74 +21,7 @@ $primary-color: color("blue", "lighten-2") !default;
 a.brand-logo img {
   height: 60px;
 }
-//
-// a:hover {
-//   color: #3534a6;
-//   background-color: transparent;
-// }
-//
-// body {
-//   padding: 0;
-//   margin: 0;
-//   background-color: #c7e2fa;
-// }
-//
-// header {
-//   display: block;
-// }
-//
-// nav {
-//   height: 50px;
-//   box-shadow: 0 1px 4px grey;
-//   padding: 5px 10px 5px 30px;
-//   background-color: white;
-// }
-//
-// .logo {
-//   float: left;
-// }
-//
-// .logo img{
-//   height: 50px;
-// }
-//
-// .menu {
-//   float: left;
-// }
-//
-// ul.menu {
-//   padding-left: 30px;
-//   list-style: none;
-//   text-transform: uppercase;
-//   font-weight: bold;
-// }
-//
-// .menu li {
-//   padding: 5px;
-//   display: inline-block;
-// }
-//
-// #wrapper {
-//   padding: 20px;
-// }
-//
-// table {
-//   border-collapse: collapse;
-// }
-// td {
-//   padding: 10px;
-// }
-// thead {
-//   text-align: left;
-//   background: #15397c;
-//   color: white;
-// }
-// thead th {
-//   padding: 10px;
-// }
-// tr.even {
-//   background: white;
-// }
-// tr.odd {
-//   /*background: #e6e6e6;*/
-// }
+
+html.turbolinks-progress-bar::before {
+  background-image: linear-gradient( 90deg, color("blue", "lighten-2"), color("blue", "darken-2"));
+}
