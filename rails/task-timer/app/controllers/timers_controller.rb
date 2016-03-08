@@ -1,6 +1,6 @@
 class TimersController < ApplicationController
   before_action :set_timer, only: [:update, :edit, :destroy]
-
+  before_action :authenticate_user!
   def new
   end
 

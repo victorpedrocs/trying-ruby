@@ -24,6 +24,8 @@ gem 'materialize-sass', '~> 0.97.5'
 gem 'momentjs-rails', '~> 2.11'
 # time_diff to deal with time difference in the controller and server redered views
 gem 'time_diff', '~> 0.3.0'
+# devise for user authentication
+gem 'devise', '~> 3.5', '>= 3.5.6'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

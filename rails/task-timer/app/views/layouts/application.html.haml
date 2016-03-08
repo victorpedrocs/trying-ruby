@@ -10,15 +10,12 @@
   %body
     %header
       %nav.nav-wrapper
-        = link_to image_tag( "icon_128.png", alt: "Task Timer" ), |
-          { controller: :pages, action: :home },             |
-          { class: 'brand-logo left'}
+        = link_to image_tag( "icon_128.png", alt: "Task Timer" ), pages_home_path,
+              class: 'brand-logo left'
         %ul#nav-mobile.right
 
           %li
             = link_to "Home", pages_home_path
-          %li
-            = link_to "Users", users_path
           %li
             = link_to "Projects", projects_path
           %li
@@ -26,4 +23,8 @@
           %li
             = link_to "About", pages_about_path
     #wrapper
+      %p.notice
+        = notice
+      %p.alert
+        = alert
       = yield

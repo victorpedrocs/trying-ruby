@@ -1,5 +1,6 @@
 
 Rails.application.routes.draw do
+  devise_for :users
   get 'pages/home'
 
   get 'pages/about'
@@ -12,7 +13,6 @@ Rails.application.routes.draw do
   end
 
   resources :projects
-  resources :users
 
   root 'pages#home'
   

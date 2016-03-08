@@ -1,8 +1,6 @@
 class Project < ActiveRecord::Base
-  belongs_to :user
   has_many :tasks, dependent: :destroy
   validates :name, presence: true, uniqueness: true
-  validates :user_id, presence: true
 
   def get_total_time_spent
     total = 0
