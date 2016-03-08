@@ -1,13 +1,17 @@
 - provide(:title, "Home")
+.jumbo.cyan.z-depth-1
 .row
   .col.s12
-    %h1 This is home
-    %h3= get_random_welcome
-    %p
-      %strong Show The season:
-    %p
-      = get_season
-    %p
-      %strong Show a random number:
-    %p
-      = get_random_value 99
+    %h1.center Task-timer
+    %p.center Organize your time using projects and tasks
+
+- @projects.each do |project|
+  .row
+    .col.s12.m8.offset-m2
+      .card
+        .card-content
+          .row
+            .col.s6
+              = link_to project.name, project
+            .col.s6
+              = distance_of_time_in_words 0.seconds, project.get_total_time_spent
