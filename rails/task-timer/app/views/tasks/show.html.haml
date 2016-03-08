@@ -1,3 +1,4 @@
+- provide :title, "Tasks"
 .row
   .col.s12.m8.offset-m2
     %input#notice{type: "hidden", value: "#{notice}"}
@@ -12,7 +13,7 @@
           = @task.description
         %p
           %strong Project:
-          = @task.project.name
+          = link_to @task.project.name, @task.project
     - if not @timer.new_record?
       .card
         .card-content
@@ -62,7 +63,7 @@
     .card
       .card-content
         %span.card-title Add a Comment
-        = form_for([@task, @task.comments.build]) do |f|
+        = form_for [@task, @task.comments.build] do |f|
           .input-field
             = f.text_field :author
             = f.label :author

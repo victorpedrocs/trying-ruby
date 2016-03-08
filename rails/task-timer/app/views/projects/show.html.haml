@@ -1,15 +1,40 @@
+%p#notice= notice
 .row
-  .col.s12
-    %p#notice= notice
-    %p
-      %strong Name:
-      = @project.name
-    %p
-      %strong Description:
-      = @project.description
-    %p
-      %strong User:
-      = @project.user.name
-    = link_to 'Edit', edit_project_path(@project)
-    |
-    = link_to 'Back', projects_path
+  .col.s12.m8.offset-m2
+    .card
+      .card-content
+        %span.card-title
+          = @project.name
+        %p
+          %strong Description:
+          = @project.description
+        %p
+          %strong User:
+          = @project.user.name
+- if @project.get_total_time_spent > 0
+  .row
+    .col.s12.m8.offset-m2
+      .card
+        .card-content
+          %span.card-title
+            = "#{project_time_in_words @project} spent doing:"
+          - @tasks.each do |task|
+            - if task.timers.any?
+              .row
+                .col.s12
+                  = link_to task.name, task
+
+.row
+  .col.s12.m8.offset-m2
+    .card
+      .card-content
+        %span.card-title All tasks
+        - @tasks.each do |task|
+          - if task.timers.none?
+            .row
+              .col.s12
+                = link_to task.name, task
+
+= link_to 'Edit', edit_project_path(@project)
+|
+= link_to 'Back', projects_path
