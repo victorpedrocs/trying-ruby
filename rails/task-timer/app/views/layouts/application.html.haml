@@ -16,15 +16,20 @@
 
           %li
             = link_to "Home", pages_home_path
-          %li
-            = link_to "Projects", projects_path
-          %li
-            = link_to "Tasks", tasks_path
+          - if user_signed_in?
+            %li
+              = link_to "Projects", projects_path
+            %li
+              = link_to "Tasks", tasks_path
           %li
             = link_to "About", pages_about_path
+          - if not user_signed_in?
+            %li= link_to "Sign up", new_user_registration_path
+            %li= link_to "Sign in", new_user_session_path
+          - else
+            %li= link_to "Sign out", destroy_user_session_path, method: :delete
     #wrapper
-      %p.notice
-        = notice
-      %p.alert
-        = alert
+      %input#notice{type: "hidden", value: "#{notice}"}
+      %input#alert{type: "hidden", value: "#{alert}"}
+
       = yield

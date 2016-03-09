@@ -1,21 +1,31 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = devise_error_messages!
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "off"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "off"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+- provide :title, "Log in"
+.row
+  .col.s12.m4.offset-m4
+    .card
+      .card-content
+        %span.card-title Sign up
+        = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+          = devise_error_messages!
+          .row
+            .input-field.col.s12
+              = f.email_field :email, autofocus: true
+              = f.label :email
+          .row
+            .input-field.col.s12
+              - if @minimum_password_length
+                = f.password_field :password, autocomplete: "off", placeholder: "#{@minimum_password_length} characters minimum"
+              -else
+                = f.password_field :password, autocomplete: "off"
+              = f.label :password
+          .row
+            .input-field.col.s12
+              = f.password_field :password_confirmation, autocomplete: "off"
+              = f.label :password_confirmation
+          .row
+            .col.s12
+              %p
+                = f.submit "Sign up", class: "btn waves-effect waves-light" do
+                  %i.material-icons.right send
+        .row
+          .col.s12
+            %p= render "devise/shared/links"
