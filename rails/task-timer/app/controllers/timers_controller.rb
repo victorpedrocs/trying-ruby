@@ -28,10 +28,11 @@ class TimersController < ApplicationController
   end
 
   def destroy
-    @timer.destroy
+
     respond_to do |format|
-      format.html { redirect_to @task, notice: 'Timer deleted' }
-      format.json { }
+      if @timer.destroy
+        format.json { render json: @tiemr.to_json }
+      end
     end
   end
 

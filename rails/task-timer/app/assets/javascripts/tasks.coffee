@@ -13,7 +13,7 @@ get_timer_html = (timer) ->
       #{interval}
     </div>
     <div class='col s3'>
-      <a rel='nofollow' data-method='delete' href='/tasks/#{timer.task_id}/timers/#{timer.id}'><i class='material-icons'>delete</i></a>
+      <a class='destroy-timer' data-remote='true' rel='nofollow' data-method='delete' href='/tasks/#{timer.task_id}/timers/#{timer.id}'><i class='material-icons'>delete</i></a>
     </div>
    </div>"
 
@@ -52,6 +52,16 @@ setup_timer = ()->
 
   return
 
+setup_destroy_timer = ->
+  $('a.destroy-timer')
+    .on "ajax:before", (event) ->
+      console.log "DESTROY"
+    .on "ajax:success", ( event, data, status, xhr ) ->
+      $($(this).parents('.row')[0]).fadeOut()
+      Materialize.toast "Timer successfully deleted"
+    .on "ajax:error", ( event, data, status, xhr ) ->
+      Materialize.toast "Ocorreu um errro #{error}"
+
 toast_notice = ->
   notice = $('input#notice').val()
   if notice != ''
@@ -72,6 +82,8 @@ iniciar_novo_timer = (form, data) ->
     $method.val('patch')
   else
     $(form).append('<input type="hidden" name="_method" value="patch">')
+    setup_destroy_timer()
+
   Materialize.toast "Timer iniciado"
 
 
@@ -103,11 +115,6 @@ setup_on_submit = ->
 
 
   return
-
-setup_destroy_timer = ->
-  $('.destroy-timer')
-    .on "ajax:success", ( event, data, status, xhr ) ->
-      $($(this).parents('.row')[0]).fadeOut()
 
 initialize = ->
   $('select').material_select() # Setting up the material select
