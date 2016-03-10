@@ -1,21 +1,21 @@
-
-setup_on_submit = ->
-  $('form#timer-form').submit (event) ->
-    url = $(this).attr('action')
-    method = $("form#timer-form input[name='_method']").val()
-
-    if !$('input#time-start').val()
-      $('input#time-start').val( new Date() )
-    else
-      $('input#time-finish').val( new Date() )
-
-    timer_data = {
-      start: $('input#time-start').val(),
-      finish: $('input#time-finish').val()
-    }
-
-    return true
-  return
+get_timer_html = (timer) ->
+  start = new Date( timer.start )
+  finish = new Date( timer.finish )
+  interval = moment.utc( moment( finish ).diff( moment( start ) ) ).format( 'HH:mm:ss' )
+  "<div class='row'>
+    <div class='col s3'>
+      #{timer.start}
+    </div>
+    <div class='col s3'>
+      #{timer.finish}
+    </div>
+    <div class='col s3'>
+      #{interval}
+    </div>
+    <div class='col s3'>
+      <a rel='nofollow' data-method='delete' href='/tasks/#{timer.task_id}/timers/#{timer.id}'><i class='material-icons'>delete</i></a>
+    </div>
+   </div>"
 
 get_start_time = ->
   $('#time-start').val()
@@ -31,10 +31,25 @@ set_time = ->
   $('#timer').html( delta )
   return
 
-setup_timer = ->
-  if $('#timer-form').children('input#time-start').val()
-    $('i#timer-button').text('stop');
-    setInterval set_time, 500
+setup_timer = ()->
+  timer_interval = null
+  $form = $('#timer-form')
+  $time_start = $form.children('input#time-start')
+  $time_finish = $form.children('input#time-finish')
+  $card_timer = $('#card-timer')
+
+  if $time_start.val() and !$time_finish.val()
+    $('i#timer-button').text 'stop'
+    $card_timer.fadeIn()
+    timer_interval = setInterval set_time, 500
+  else if $time_finish.val()
+    clearInterval timer_interval
+    $card_timer.fadeOut()
+    $('i#timer-button').text 'play_arrow'
+    reset_form $form[0]
+  else
+    $card_timer.hide()
+
   return
 
 toast_notice = ->
@@ -44,21 +59,64 @@ toast_notice = ->
 
   return
 
+encerrar_timer = (form, data) ->
+  $('#timers-card').append get_timer_html( data )
+  $(form).attr('action', "#{window.location.pathname}/timers")
+  Materialize.toast "Timer encerrado"
+
+iniciar_novo_timer = (form, data) ->
+  action = $(form).attr('action')
+  $(form).attr('action', "#{action}/#{data.id}")
+  $method = $(form).children("input[name='_method']")
+  if $method[0]
+    $method.val('patch')
+  else
+    $(form).append('<input type="hidden" name="_method" value="patch">')
+  Materialize.toast "Timer iniciado"
+
+
+setup_on_submit = ->
+
+  $('form#timer-form')
+
+    .on "ajax:before", (event) ->
+      $time_start = $('input#time-start')
+      $time_finish = $('input#time-finish')
+
+      if !$time_start.val()
+        $time_start.val( new Date() )
+        setup_timer()
+
+      else if !$time_finish.val()
+        $time_finish.val( new Date() )
+
+    .on "ajax:success", ( event, data, status, xhr ) ->
+      if data.finish
+        encerrar_timer this, data
+      else
+        iniciar_novo_timer this, data
+
+      setup_timer()
+
+    .on "ajax:error", ( event, xhr, status, error ) ->
+      Materialize.toast "Ocorreu um erro #{error}"
+
+
+  return
+
+setup_destroy_timer = ->
+  $('.destroy-timer')
+    .on "ajax:success", ( event, data, status, xhr ) ->
+      $($(this).parents('.row')[0]).fadeOut()
+
 initialize = ->
-  # Setting up the material select
-  $('select').material_select()
+  $('select').material_select() # Setting up the material select
   setup_on_submit()
   setup_timer()
   toast_notice()
-
+  setup_destroy_timer()
   return
 
 
 $(document).ready( initialize )
-# Work around turbolinks
-$(document).on('page:load', initialize)
-
-
-# Turbolinks latency loader indicator
-# $(document).on('page:fetch', callback) # is the event fired when the page is loading
-# $(document).on('page:change', callback) # is fired when the page finishes loading
+$(document).on('page:load', initialize) # Turbolink on page load

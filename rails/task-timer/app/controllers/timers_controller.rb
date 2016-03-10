@@ -9,7 +9,7 @@ class TimersController < ApplicationController
 
     @timer = @task.timers.create(timer_params)
     respond_to do |format|
-      format.html { redirect_to @task, notice: 'Timer started' }
+      # format.html { redirect_to @task, notice: 'Timer started' }
       format.json { render json: @timer.to_json(except: [:created_at, :updated_at]) }
     end
   end
@@ -20,7 +20,8 @@ class TimersController < ApplicationController
   def update
     respond_to do |format|
       if @timer.update timer_params
-        format.html { redirect_to @task, notice: 'Timer stopped' }
+        # format.html { redirect_to @task, notice: 'Timer stopped' }
+        format.json { render json: @timer.to_json(except: [:created_at, :updated_at]) }
       end
     end
 
@@ -30,7 +31,7 @@ class TimersController < ApplicationController
     @timer.destroy
     respond_to do |format|
       format.html { redirect_to @task, notice: 'Timer deleted' }
-      format.json { render json: @timer.to_json(except: [:created_at, :updated_at]) }
+      format.json { }
     end
   end
 

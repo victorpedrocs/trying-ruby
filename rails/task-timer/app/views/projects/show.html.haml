@@ -1,4 +1,4 @@
-%p#notice= notice
+
 .row
   .col.s12.m8.offset-m2
     .card
@@ -10,17 +10,15 @@
           = @project.description
 
     - if @project.get_total_time_spent > 0
-      .row
-        .col.s12.m8.offset-m2
-          .card
-            .card-content
-              %span.card-title
-                = "#{project_time_in_words @project} spent doing:"
-              - @tasks.each do |task|
-                - if task.timers.any?
-                  .row
-                    .col.s12
-                      = link_to task.name, task
+      .card
+        .card-content
+          %span.card-title
+            = "#{project_time_in_words @project} spent doing:"
+          - @tasks.each do |task|
+            - if task.timers.any?
+              .row
+                .col.s12
+                  = link_to task.name, task
 
     -# .row
     -#   .col.s12.m8.offset-m2

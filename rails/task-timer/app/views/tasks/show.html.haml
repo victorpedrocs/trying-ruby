@@ -14,37 +14,36 @@
           %strong Project:
           = link_to @task.project.name, @task.project
     - if user_signed_in?
-      - if not @timer.new_record?
-        .card
-          .card-content
-            %span.card-title
-              .row
-                .col.s6
-                  %span#timer
+
+      .card#card-timer
+        .card-content
+          %span.card-title
+            .row
+              .col.s6
+                %span#timer
 
       = form_for [@task, @timer],
-          html: { id: 'timer-form'} do |f|
+          html: { id: 'timer-form'}, remote: true do |f|
         = f.hidden_field :start, {id: 'time-start'}
         = f.hidden_field :finish, {id: 'time-finish'}
 
         %button.btn-floating.btn-large.waves-effect.waves-light{type: "submit"}
           %i.material-icons#timer-button play_arrow
 
-      -if @timers.any?
-        .card
-          .card-content
-            %span.card-title Timers
-            -@timers.each do |timer|
-              .row
-                .col.s3
-                  = timer.start.to_s( :db )
-                .col.s3
-                  = timer.finish.to_s( :db )
-                .col.s3
-                  = delta_time timer.start, timer.finish
-                .col.s3
-                  = link_to [@task, timer], method: :delete do
-                    %i.material-icons delete
+      .card
+        .card-content#timers-card
+          %span.card-title Timers
+          -@timers.each do |timer|
+            .row
+              .col.s3
+                = timer.start.to_s( :db )
+              .col.s3
+                = timer.finish.to_s( :db )
+              .col.s3
+                = delta_time timer.start, timer.finish
+              .col.s3
+                = link_to [@task, timer], method: :delete, remote: true, class: "destroy-timer" do
+                  %i.material-icons delete
 
     - if @task.comments.any?
       %h4 Comments

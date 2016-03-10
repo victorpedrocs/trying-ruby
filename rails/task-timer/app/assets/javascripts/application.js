@@ -21,3 +21,7 @@
   $(".button-collapse").sideNav();
   Turbolinks.enableProgressBar();
 })(jQuery);
+
+reset_form = function( form ) {
+  $(form).children('input').val('');
+}
