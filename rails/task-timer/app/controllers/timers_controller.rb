@@ -11,6 +11,7 @@ class TimersController < ApplicationController
     respond_to do |format|
       # format.html { redirect_to @task, notice: 'Timer started' }
       format.json { render json: @timer.to_json(except: [:created_at, :updated_at]) }
+      format.js
     end
   end
 
@@ -22,16 +23,17 @@ class TimersController < ApplicationController
       if @timer.update timer_params
         # format.html { redirect_to @task, notice: 'Timer stopped' }
         format.json { render json: @timer.to_json(except: [:created_at, :updated_at]) }
+        format.js
       end
     end
 
   end
 
   def destroy
-
     respond_to do |format|
       if @timer.destroy
-        format.json { render json: @tiemr.to_json }
+        format.json { render json: {success: true} }
+        format.js
       end
     end
   end

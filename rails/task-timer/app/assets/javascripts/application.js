@@ -17,6 +17,8 @@
 //= require materialize-sprockets
 //= require moment
 
+var reset_form, toast_notice;
+var TOAST_TIME = 2000;
 ( function($) {
   $(".button-collapse").sideNav();
   Turbolinks.enableProgressBar();
@@ -25,3 +27,10 @@
 reset_form = function( form ) {
   $(form).children('input').val('');
 }
+
+toast_notice = function() {
+  notice = $('input#notice').val();
+  if( notice != '' ) {
+    Materialize.toast( notice, TOAST_TIME );
+  }
+};
